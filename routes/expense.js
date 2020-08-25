@@ -203,8 +203,12 @@ router.get('/expenseAllRecords',verify, async (request, response) => {
                   obj.editButton = '<button    data-toggle="modal" data-target="#popupEdit" class="btn btn-primary expIdEditMode"   id="edit'+expenseQueryResult.rows[i].sfid+'" >Edit</button>';
                 else
                   obj.editButton = '<button    data-toggle="modal" data-target="#popupEdit" class="btn btn-primary expIdEditMode"   id="edit'+expenseQueryResult.rows[i].sfid+'" >Edit</button>';
-                obj.approvalButton = '<button   class="btn btn-primary expIdApproval"  style="color:white;" id="'+expenseQueryResult.rows[i].sfid+'" >Submit For Approval</button>';
-                expenseList.push(obj);
+               
+                  if(expenseQueryResult.rows[i].approval_status__c == 'Approved' || expenseQueryResult.rows[i].approval_status__c == 'Rejected')
+                  obj.approvalButton = '<button   class="btn btn-primary expIdApproval" disabled = "true" style="color:white;" id="'+expenseQueryResult.rows[i].sfid+'" >Submit For Approval</button>';
+                 else
+                 obj.approvalButton = '<button   class="btn btn-primary expIdApproval" style="color:white;" id="'+expenseQueryResult.rows[i].sfid+'" >Submit For Approval</button>';
+                  expenseList.push(obj);
                 /* disabled="'+expenseQueryResult.rows[i].isherokueditbuttondisabled__c+'" */
               }
 
